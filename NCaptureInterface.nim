@@ -2,10 +2,12 @@
 
 import winim
 
+## GetInterface function
 type interface_fn* = proc (pName: cstring, pReturnCode: int): pointer {.cdecl.}   # change pointer with func type
 proc GetInterface*(dllName: cstring, interfaceName: cstring): auto {.cdecl.} =
   let create_interface = cast[interface_fn](GetProcAddress(GetModuleHandleA(dllName), "CreateInterface"))
   return create_interface(interfaceName, 0)
+## --------
 
 proc mainThread(lpParameter: LPVOID) =
   AllocConsole()
